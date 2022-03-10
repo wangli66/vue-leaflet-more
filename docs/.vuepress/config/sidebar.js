@@ -1,0 +1,22 @@
+module.exports = {
+    "/example/": [
+        "/example/",
+        "/example/lMap.md",
+        "/example/lBaseLayer",
+        "/example/lDrawLayer",
+        "/example/lTileLayer",
+        "/example/LWmsTileLayer",
+        "/example/LWmtsTileLayer",
+        "/example/LImageOverlay",
+        "/example/LVideoOverlay",
+        "/example/LGeoJson",
+        "/example/LFeatureGroup",
+        "/example/LPath",
+        "/example/LPolyline",
+        "/example/LPolygon",
+        "/example/LRectangle",
+        "/example/LCircle",
+        "/example/LCircleMarker",
+    ],
+    "/": ["/"],
+};
