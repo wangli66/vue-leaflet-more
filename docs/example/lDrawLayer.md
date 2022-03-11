@@ -385,8 +385,6 @@ title: lDrawLayer
       drawOptions: [],
     }),
     mounted() {
-      //   debugger;
-      //   const icon = require("./marker-icon.png");
       const L = require("leaflet");
       this.drawOptions = [
         {

@@ -1,5 +1,5 @@
 ---
-title: 示例1
+title: 写在前面
 ---
 
 ## 组件共同的属性
@@ -110,23 +110,95 @@ title: 示例1
 
 ```html
 <template>
-  <l-map style="height:400px;" :zoomControl="true">
-    <l-tile-layer
-      :url="'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}'"
-      :options="{foo:'bar'}"
-    >
-    </l-tile-layer>
+  <l-map style="height:400px;" :crs="'EPSG4326'" :zoomControl="true">
+    <l-base-layer :layersOptions="layersOptions"> </l-base-layer>
     <l-draw-layer></l-draw-layer>
   </l-map>
 </template>
 <script>
   export default {
-    data: () => ({ layersOptions: "这是调用时的自定义属性" }),
-    methods: {
-      emitClick() {
-        alert("测试点击事件——" + this.name);
-      },
-    },
+    data: () => ({
+      layersOptions: [
+        {
+          type: "wmtsTileLayer",
+          nameClass: "vector",
+          config: [
+            {
+              url: "http://t0.tianditu.gov.cn/vec_c/wmts?tk=3133b000f831d898dc3a8f9bcff6ddf4",
+              options: {
+                layer: "vec",
+                tileMatrixSet: "c",
+                format: "tiles",
+                style: "default",
+                type: "baseLayer",
+              },
+            },
+            {
+              url: "http://t0.tianditu.gov.cn/cva_c/wmts?tk=3133b000f831d898dc3a8f9bcff6ddf4",
+              options: {
+                layer: "cva",
+                tileMatrixSet: "c",
+                format: "tiles",
+                style: "default",
+                type: "baseLayer",
+              },
+            },
+          ],
+        },
+        {
+          type: "wmtsTileLayer",
+          nameClass: "terrain",
+          config: [
+            {
+              url: "http://t0.tianditu.gov.cn/ter_c/wmts?tk=5f62055ba4a942589b724283706c399a",
+              options: {
+                layer: "ter",
+                tileMatrixSet: "c",
+                format: "tiles",
+                style: "default",
+                type: "baseLayer",
+              },
+            },
+            {
+              url: "http://t0.tianditu.gov.cn/cta_c/wmts?tk=5f62055ba4a942589b724283706c399a",
+              options: {
+                layer: "cta",
+                tileMatrixSet: "c",
+                format: "tiles",
+                style: "default",
+                type: "baseLayer",
+              },
+            },
+          ],
+        },
+        {
+          type: "wmtsTileLayer",
+          nameClass: "image",
+          config: [
+            {
+              url: "http://t0.tianditu.gov.cn/img_c/wmts?tk=5f62055ba4a942589b724283706c399a",
+              options: {
+                layer: "img",
+                tileMatrixSet: "c",
+                format: "tiles",
+                style: "default",
+                type: "baseLayer",
+              },
+            },
+            {
+              url: "http://t0.tianditu.gov.cn/cia_c/wmts?tk=5f62055ba4a942589b724283706c399a",
+              options: {
+                layer: "cia",
+                tileMatrixSet: "c",
+                format: "tiles",
+                style: "default",
+                type: "baseLayer",
+              },
+            },
+          ],
+        },
+      ],
+    }),
   };
 </script>
 ```

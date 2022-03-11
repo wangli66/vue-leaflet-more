@@ -6,7 +6,6 @@ module.exports = {
     description: "vue-leaflet-more 快速、便捷使用leaflet进行vue项目开发",
     dest: "./docs/dist",
     base: process.env.NODE_ENV === 'production' ? '/vue-leaflet-more/' : '/',
-    // base: '/',
     plugins: [
         "demo-container",
         "@vuepress/plugin-back-to-top",
