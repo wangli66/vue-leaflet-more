@@ -200,6 +200,11 @@ js: options={zoom:4}
 
 下表中列举的只是一部分，更多方法请参考 lealet 文档，使用下表方法，请设置useSelfMethods为true
 
+| 方法                           | 返回值  | 描述                                   |
+| ------------------------------ | ------- | -------------------------------------- |
+| geojsonToWKT(< object>geoJson) | wkt     | 将geojson对象的数据格式转化为wkt字符串 |
+| wktToGeoJSON(< string>wkt)     | geoJson | 将wkt字符串的数据格式转化为geojson对象 |
+
 
 
 ### 地图状态修改

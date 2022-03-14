@@ -8,6 +8,7 @@
     import Options from '../../../mixins/Options.js';
     import { propsBinder, methodsBinder } from '../../../utils/utils.js';
     import { CRS, DomEvent, map, extend, latLngBounds, latLng } from 'leaflet';
+    import { wktToGeoJSON, geojsonToWKT } from "@terraformer/wkt"
 
     export default {
         name: 'LMap',
@@ -69,6 +70,12 @@
             };
         },
         methods: {
+            geojsonToWKT(geoJSON) {
+                return geojsonToWKT(geoJSON);
+            },
+            wktToGeoJSON(wkt) {
+                return wktToGeoJSON(wkt);
+            },
             // 使用过程中，
             getMap() {
                 return this.map;
