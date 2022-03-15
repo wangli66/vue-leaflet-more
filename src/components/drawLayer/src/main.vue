@@ -10,31 +10,31 @@
 </template>
 
 <script>
-    import { propsBinder, methodsBinder } from "../../../utils/utils.js";
-    import Options from "../../../mixins/Options.js";
-    import drawMixin from "../../../mixins/drawMixin.js";
-    import { polyline, extend } from "leaflet";
-    import { geojsonToWKT } from "@terraformer/wkt";
+    import { propsBinder, methodsBinder } from '../../../utils/utils.js'
+    import Options from '../../../mixins/Options.js'
+    import drawMixin from '../../../mixins/drawMixin.js'
+    import { polyline, extend } from 'leaflet'
+    import { geojsonToWKT } from '@terraformer/wkt'
 
     export default {
-        name: "LDrawLayer",
-        inject: ["lMap"],
+        name: 'LDrawLayer',
+        inject: ['lMap'],
         mixins: [Options, drawMixin],
         inheritAttrs: false,
         props: {
             dToB: {
                 type: [String, Array],
-                default: "10px 80px",
+                default: '10px 80px',
             },
             position: {
                 type: String,
-                default: "topleft",
+                default: 'topleft',
                 validator: function(value) {
                     return (
-                        ["topleft", "topright", "bottomleft", "bottomright"].indexOf(
+                        ['topleft', 'topright', 'bottomleft', 'bottomright'].indexOf(
                             value
                         ) !== -1
-                    );
+                    )
                 },
             },
             // 是否绘制多个图形
@@ -47,23 +47,23 @@
             drawOptions: {
                 type: [Array, Object],
                 default: () => [
-                    "marker",
-                    "circleMarker",
-                    "rectangle",
-                    "polygon",
-                    "circle",
-                    "polyline",
-                    "delete",
+                    'marker',
+                    'circleMarker',
+                    'rectangle',
+                    'polygon',
+                    'circle',
+                    'polyline',
+                    'delete',
                 ],
                 // 校验数据格式
                 validator: function(value) {
-                    let b = true;
+                    let b = true
                     if (Array.isArray(value)) {
                         b = value.every(
-                            (item) => typeof item == "string" || item.type != undefined
-                        );
+                            (item) => typeof item == 'string' || item.type != undefined
+                        )
                     }
-                    return b;
+                    return b
                 },
                 // object {type:'',style:{},mode:'',measure:false}
                 // array  ['']||[{}]
@@ -71,7 +71,7 @@
             commonStyle: {
                 type: Object,
                 default: () => ({
-                    color: "#4c7efd",
+                    color: '#4c7efd',
                     weight: 1,
                 }),
             },
@@ -91,40 +91,40 @@
                 drawList: [],
                 originOptions: {
                     marker: {
-                        title: "标记",
+                        title: '标记',
                         // style: {},
                     },
                     circleMarker: {
-                        title: "圆形标记",
+                        title: '圆形标记',
                         // style: {},
                     },
                     rectangle: {
-                        title: "绘制矩形",
+                        title: '绘制矩形',
                         // style: {},
                     },
                     rectangleMeasure: {
-                        title: "绘制测量矩形",
+                        title: '绘制测量矩形',
                         // style: {},
                     },
                     polygon: {
-                        title: "绘制多边形",
+                        title: '绘制多边形',
                         // style: {},
                     },
                     polygonMeasure: {
-                        title: "绘制测量多边形",
+                        title: '绘制测量多边形',
                         // style: {},
                     },
                     circle: {
-                        title: "绘制圆形",
+                        title: '绘制圆形',
                     },
                     polyline: {
-                        title: "绘制多线段",
+                        title: '绘制多线段',
                     },
                     polylineMeasure: {
-                        title: "绘制测量多线段",
+                        title: '绘制测量多线段',
                     },
                     delete: {
-                        title: "清除图层",
+                        title: '清除图层',
                     },
                 },
                 renderDrawObj: {},
@@ -132,148 +132,148 @@
                 drawLayer: null,
                 editable: false,
                 // editTypeArr: ['rectangle', 'polygon', 'circle', 'polyline'],
-                editType: "", //rectangle
+                editType: '', //rectangle
                 // drawShapeMore: true, //是否绘制多个图形,默认一次只绘制一个
                 isMeasure: this.measure, //是否测量
                 // drawStyle: { color: '#4c7efd', weight: 1 }, //绘制时的样式
-            };
+            }
         },
         watch: {
             drawOptions: {
                 deep: true,
                 immediate: true,
                 handler(newVal, oldVal) {
-                    let originOptions = this.originOptions;
-                    let typeArr = this.typeArr;
-                    let arr = Array.isArray(newVal) ? newVal : Object.keys(newVal);
-                    this.renderDrawObj = {};
+                    let originOptions = this.originOptions
+                    let typeArr = this.typeArr
+                    let arr = Array.isArray(newVal) ? newVal : Object.keys(newVal)
+                    this.renderDrawObj = {}
                     this.drawList = arr.map((item) => {
                         if (!typeArr.includes(item.type || item)) {
                             console.error(
                                 `绘制组件暂不支持"${item}"的绘制类型，请查看文档后重新定义\n支持的绘制类型有：${typeArr}`
-                            );
-                            return false;
+                            )
+                            return false
                         }
-                        let obj = {};
-                        let varType = typeof item;
-                        let curOriginObj = originOptions[item] || originOptions[item.type];
-                        if (varType === "string") {
-                            obj.type = item;
+                        let obj = {}
+                        let varType = typeof item
+                        let curOriginObj = originOptions[item] || originOptions[item.type]
+                        if (varType === 'string') {
+                            obj.type = item
                             if (newVal[item]) {
-                                obj = { ...obj, ...newVal[item] };
+                                obj = { ...obj, ...newVal[item] }
                             }
-                            obj = { ...curOriginObj, ...obj };
-                        } else if (varType === "object") {
-                            obj = { ...curOriginObj, ...item };
+                            obj = { ...curOriginObj, ...obj }
+                        } else if (varType === 'object') {
+                            obj = { ...curOriginObj, ...item }
                         }
-                        this.renderDrawObj[obj.type] = obj;
-                        return obj;
-                    });
+                        this.renderDrawObj[obj.type] = obj
+                        return obj
+                    })
                     // console.log('---this.drawLis', this.drawList)
                 },
             },
         },
         computed: {
             typeArr() {
-                return Object.keys(this.originOptions);
+                return Object.keys(this.originOptions)
             },
             drawStyle() {
-                let style = { color: "#4c7efd", weight: 1 };
-                let editType = this.editType;
-                let renderDrawObj = this.renderDrawObj;
-                let curStyle = renderDrawObj[editType].style || {};
-                return { style, ...this.commonStyle, ...curStyle };
+                let style = { color: '#4c7efd', weight: 1 }
+                let editType = this.editType
+                let renderDrawObj = this.renderDrawObj
+                let curStyle = renderDrawObj[editType].style || {}
+                return { style, ...this.commonStyle, ...curStyle }
             },
             drawIconStyle() {
-                let editType = this.editType;
-                let renderDrawObj = this.renderDrawObj;
-                let curStyle = renderDrawObj[editType].iconStyle || {};
-                return { ...this.commonIconStyle, ...curStyle };
+                let editType = this.editType
+                let renderDrawObj = this.renderDrawObj
+                let curStyle = renderDrawObj[editType].iconStyle || {}
+                return { ...this.commonIconStyle, ...curStyle }
             },
             positionClass() {
                 let dToB = this.dToB,
-                    position = this.position;
-                dToB = Array.isArray(dToB) ? dToB : dToB.split(" ");
-                let x = dToB[0];
-                let y = dToB.length == 1 ? x : dToB[1];
-                let xClass = position.includes("left") ? "left" : "right";
-                let yClass = position.includes("top") ? "top" : "bottom";
+                    position = this.position
+                dToB = Array.isArray(dToB) ? dToB : dToB.split(' ')
+                let x = dToB[0]
+                let y = dToB.length == 1 ? x : dToB[1]
+                let xClass = position.includes('left') ? 'left' : 'right'
+                let yClass = position.includes('top') ? 'top' : 'bottom'
                 return {
                     [xClass]: x,
                     [yClass]: y,
-                };
+                }
             },
         },
         methods: {
             handleDrawShape(shapeInfo) {
-                let { type } = shapeInfo;
-                this.initDrawShapeStatus(false);
-                if (type == "delete") {
-                    this.clearLayers();
-                    return false;
+                let { type } = shapeInfo
+                this.initDrawShapeStatus(false)
+                if (type == 'delete') {
+                    this.clearLayers()
+                    return false
                 }
                 if (!this.drawShapeMore) {
-                    this.clearLayers(true);
+                    this.clearLayers(true)
                 }
-                this.getIsMeasure(shapeInfo);
-                let typeSame = this.editType == type;
-                this.editType = typeSame ? "" : type;
-                this.setEditable(!typeSame);
-                this.$emit("changeType", shapeInfo);
+                this.getIsMeasure(shapeInfo)
+                let typeSame = this.editType == type
+                this.editType = typeSame ? '' : type
+                this.setEditable(!typeSame)
+                this.$emit('changeType', shapeInfo)
             },
             getIsMeasure(shapeInfo) {
                 this.isMeasure =
-                    shapeInfo.measure != undefined ? shapeInfo.measure : this.measure;
+                    shapeInfo.measure != undefined ? shapeInfo.measure : this.measure
             },
             // 设置是否可编辑  editable为布尔值
             setEditable(editable) {
-                this.clearMarker();
-                this.editable = editable;
+                this.clearMarker()
+                this.editable = editable
             },
             // 清除图层  onlyClear：false->仅清除图层,true->清除图层加还原操作项
             clearLayers(onlyClear = false) {
                 if (!onlyClear) {
-                    this.editType = "";
+                    this.editType = ''
                 }
-                this.setEditable(false);
-                this.drawLayer && this.drawLayer.clearLayers();
+                this.setEditable(false)
+                this.drawLayer && this.drawLayer.clearLayers()
             },
             //得到绘制图层
             getDrawLayers(type) {
-                let drawLayer = this.drawLayer;
+                let drawLayer = this.drawLayer
                 // 后续开发此项功能
                 if (type && this.typeArr.includes(type)) {
                     // debugger
                     drawLayer.eachLayer((layer) => {
-                        console.log(layer);
-                    });
+                        console.log(layer)
+                    })
                 }
-                return drawLayer.getLayers();
+                return drawLayer.getLayers()
             },
             // 得到绘制图层
             getDrawLayer() {
-                return this.drawLayer;
+                return this.drawLayer
             },
             // 得到所有绘制的feature
             getFeatures() {
-                let geoJSON = this.drawLayer.toGeoJSON();
-                return geoJSON.features || [];
+                let geoJSON = this.drawLayer.toGeoJSON()
+                return geoJSON.features || []
             },
             // 将绘制图形的数据转化为GeometryCollection的wkt格式
             toWKT(geoJSON) {
                 if (!geoJSON) {
-                    geoJSON = this.getFeatures();
-                    let arr = geoJSON.map(item => item.geometry);
+                    geoJSON = this.getFeatures()
+                    let arr = geoJSON.map((item) => item.geometry)
                     geoJSON = {
-                        "type": "GeometryCollection",
-                        "geometries": arr
-                    };
+                        type: 'GeometryCollection',
+                        geometries: arr,
+                    }
                 }
-                return geojsonToWKT(geoJSON);
+                return geojsonToWKT(geoJSON)
             },
             toWktArray() {
-                let geoJSON = this.getFeatures();
-                return geoJSON.map(item => geojsonToWKT(item.geometry));
+                let geoJSON = this.getFeatures()
+                return geoJSON.map((item) => geojsonToWKT(item.geometry))
             },
 
             // 一个图形绘制结束后，状态初始化，可用来检测图形绘制结束
@@ -283,42 +283,46 @@
             // },
             // 开始绘制
             emitStartDraw(coords) {
-                this.$emit("startDraw", coords, this.editType);
+                this.$emit('startDraw', coords, this.editType)
             },
             // 正在绘制中
             emitDrawing(tempDrawing, handler, coords) {
-                this.$emit("drawing", tempDrawing, handler, coords);
+                this.$emit('drawing', tempDrawing, handler, coords)
             },
             // 结束绘制
             emitFinishDraw(tempDrawing) {
-                this.$emit("finishDraw", tempDrawing);
+                if (!this.drawShapeMore) {
+                    this.editType = '';
+                    this.setEditable(false);
+                }
+                this.$emit('finishDraw', tempDrawing)
             },
             // 初始化组件对象
             initLeafletObject() {
-                this.mapObject = this.lMap.self;
-                this.drawLayer = L.featureGroup();
-                this.mapObject.addLayer(this.drawLayer);
+                this.mapObject = this.lMap.self
+                this.drawLayer = L.featureGroup()
+                this.mapObject.addLayer(this.drawLayer)
 
-                this.mapObject.on("click", this.onMapClick);
-                this.mapObject.on("mousemove", this.onMapMousemove);
+                this.mapObject.on('click', this.onMapClick)
+                this.mapObject.on('mousemove', this.onMapMousemove)
 
                 // 响应式参数处理
-                propsBinder(this, this.drawLayer, this.$options.props);
-                propsBinder(this, this.drawLayer, {}, this.options);
+                propsBinder(this, this.drawLayer, this.$options.props)
+                propsBinder(this, this.drawLayer, {}, this.options)
 
                 this.$nextTick(() => {
-                    this.ready = true;
+                    this.ready = true
                     // 是否支持原方法
-                    this.useSelfMethods && methodsBinder(this, this.drawLayer);
+                    this.useSelfMethods && methodsBinder(this, this.drawLayer)
                     // 监听当前组件实例化后
-                    this.$emit("ready", this.mapObject, this.selfOptions);
-                });
+                    this.$emit('ready', this.mapObject, this.selfOptions)
+                })
             },
         },
         mounted() {
-            this.initLeafletObject();
+            this.initLeafletObject()
         },
-    };
+    }
 </script>
 
 <style>

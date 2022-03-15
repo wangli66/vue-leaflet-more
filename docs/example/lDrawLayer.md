@@ -478,13 +478,13 @@ drawOptions 中的配置优先级 > 属性说明中的配置
 
 ## 方法说明
 
-| 方法名称      | 说明                                        | 参数 | 返回值                                                       |
-| ------------- | ------------------------------------------- | ---- | ------------------------------------------------------------ |
-| clearLayers   | 清除所有的绘制图层                          | —    | this                                                         |
-| getDrawLayers | 得到所有的绘制图层                          | —    | Layer[]                                                      |
-| getDrawLayer  | 得到绘制图层                                | —    | object<br/>返回 featureGroup 图层本身                        |
-| toGeoJSON     | 将绘制的图层转换标记为 GeoJSON 格式对象数据 | —    | object<br/>返回 GeoJSON 的数据                               |
-| toWKT         | 将绘制图层转换标记为 wkt 格式的字符串数据   | —    | string<br/>返回 wkt 的数据，类型type为几何集合GeometryCollection |
+| 方法名称      | 说明                                        | 参数 | 返回值                                                                                                                               |
+| ------------- | ------------------------------------------- | ---- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| clearLayers   | 清除所有的绘制图层                          | —    | this                                                                                                                                 |
+| getDrawLayers | 得到所有的绘制图层                          | —    | Layer[]                                                                                                                              |
+| getDrawLayer  | 得到绘制图层                                | —    | object<br/>返回 featureGroup 图层本身                                                                                                |
+| toGeoJSON     | 将绘制的图层转换标记为 GeoJSON 格式对象数据 | —    | object<br/>返回 GeoJSON 的数据                                                                                                       |
+| toWKT         | 将绘制图层转换标记为 wkt 格式的字符串数据   | —    | string<br/>返回 wkt 的数据，类型 type 为几何集合 GeometryCollection                                                                  |
 | toWktArray    | 将绘制图层数据转换为 wkt 格式的字符串       |      | array<br/>返回 wkt 的数据，数组中每项的类型为简单几何类型。（Point，LineString，Polygon，MultiPoint，MultiLineString，MultiPolygon） |
 
 ## 事件说明

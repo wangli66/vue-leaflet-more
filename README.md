@@ -15,7 +15,7 @@ demo 地址：[https://wangli66.gitee.io/vue-leaflet-more/](https://wangli66.git
 1、安装
 
 ```js
-    npm install vue-leaflet-more
+    npm install vue-leaflet-more leaflet
 ```
 
 2、使用

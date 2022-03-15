@@ -14,7 +14,7 @@ https://gitee.com/wangli66/vue-leaflet-more.git
 1、安装
 
 ```js
-    npm install vue-leaflet-more
+    npm install vue-leaflet-more leaflet
 ```
 
 2、使用
