@@ -18,6 +18,7 @@ title: LWmtsTileLayer
 <script>
   export default {
     data: () => ({
+      test: true,
       wmtsUrl:
         "http://t0.tianditu.gov.cn/ter_c/wmts?tk=3133b000f831d898dc3a8f9bcff6ddf4",
       wmtsOptions: {

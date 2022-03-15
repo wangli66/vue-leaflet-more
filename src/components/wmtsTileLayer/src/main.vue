@@ -37,5 +37,6 @@
         mounted() {
             this.initLeafletObject();
         }
+
     }
 </script>

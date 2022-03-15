@@ -58,5 +58,8 @@ export default {
                 this.$emit('ready', this.map, this.selfOptions);
             });
         }
+    },
+    beforeDestroy() {
+        this.self && this.self.remove && this.self.remove();
     }
 };
