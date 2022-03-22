@@ -126,9 +126,9 @@
         mounted() {
             this.ensureMapDom();
         },
-        beforeDestroy() {
-            this.map && this.map.remove();
-        },
+        // beforeDestroy() {
+        //     this.map && this.map.remove();
+        // },
     }
 </script>
 
