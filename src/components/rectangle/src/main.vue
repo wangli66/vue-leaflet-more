@@ -1,5 +1,7 @@
 <template>
-    <div v-if="ready" />
+    <div style="display: none">
+        <slot v-if="ready" />
+    </div>
 </template>
 
 <script>

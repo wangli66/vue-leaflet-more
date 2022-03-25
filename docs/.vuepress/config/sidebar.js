@@ -8,6 +8,7 @@ module.exports = {
         "/example/LWmsTileLayer",
         "/example/LWmtsTileLayer",
         "/example/LImageOverlay",
+        "/example/LImageOverlayRotated",
         "/example/LVideoOverlay",
         "/example/LGeoJson",
         "/example/LFeatureGroup",
@@ -17,6 +18,9 @@ module.exports = {
         "/example/LRectangle",
         "/example/LCircle",
         "/example/LCircleMarker",
+        "/example/LMarker",
+        "/example/LPopup",
+        "/example/LTooltip",
     ],
     "/": ["/"],
 };

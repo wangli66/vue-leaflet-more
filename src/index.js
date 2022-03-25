@@ -3,6 +3,7 @@ import LTileLayer from './components/tileLayer';
 import LWmsTileLayer from './components/wmsTileLayer';
 import LWmtsTileLayer from './components/wmtsTileLayer';
 import LImageOverlay from './components/imageOverlay';
+import LImageOverlayRotated from './components/imageOverlayRotated';
 import LVideoOverlay from './components/videoOverlay';
 import LBaseLayer from './components/baseLayer';
 import LDrawLayer from './components/drawLayer';
@@ -17,6 +18,10 @@ import LRectangle from './components/rectangle';
 import LCircle from './components/circle';
 import LCircleMarker from './components/circleMarker';
 
+import LMarker from './components/marker';
+import LPopup from './components/popup';
+import LTooltip from './components/tooltip';
+
 import "leaflet/dist/leaflet.css";
 
 
@@ -25,6 +30,7 @@ const components = [
     LTileLayer,
     LWmsTileLayer,
     LImageOverlay,
+    LImageOverlayRotated,
     LVideoOverlay,
     LWmtsTileLayer,
     LLayerGroup,
@@ -36,7 +42,10 @@ const components = [
     LPolygon,
     LRectangle,
     LCircle,
-    LCircleMarker
+    LCircleMarker,
+    LMarker,
+    LPopup,
+    LTooltip
 ];
 
 const install = function(Vue, opts = {}) {
@@ -55,6 +64,7 @@ export default {
     LTileLayer,
     LWmsTileLayer,
     LImageOverlay,
+    LImageOverlayRotated,
     LVideoOverlay,
     LWmtsTileLayer,
     LLayerGroup,
@@ -66,5 +76,8 @@ export default {
     LPolygon,
     LRectangle,
     LCircle,
-    LCircleMarker
+    LCircleMarker,
+    LMarker,
+    LPopup,
+    LTooltip
 }

@@ -1,8 +1,8 @@
-import LCircleMarker from './src/main.vue';
+import LMarker from './src/main.vue';
 
 /* istanbul ignore next */
-LCircleMarker.install = function(Vue) {
-    Vue.component(LCircleMarker.name, LCircleMarker);
+LMarker.install = function(Vue) {
+    Vue.component(LMarker.name, LMarker);
 };
 
-export default LCircleMarker;
+export default LMarker;

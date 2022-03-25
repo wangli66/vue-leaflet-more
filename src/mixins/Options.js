@@ -55,7 +55,7 @@ export default {
                 // 是否支持原方法
                 this.useSelfMethods && methodsBinder(this, this.self);
                 // 监听当前组件实例化后
-                this.$emit('ready', this.map, this.selfOptions);
+                this.$emit('ready', this.self, this.selfOptions);
             });
         }
     },

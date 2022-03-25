@@ -1,14 +1,17 @@
 <template>
-    <div v-if="ready" />
+    <div v-if="ready">
+        <slot></slot>
+    </div>
 </template>
 
 <script>
     import Options from '../../../mixins/Options.js';
-    import { circleMarker, extend } from 'leaflet';
-
+    import { marker, icon, extend } from 'leaflet';
+    import iconUrl from 'leaflet/dist/images/marker-icon.png';
+    import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 
     export default {
-        name: 'LCircleMarker',
+        name: 'LMarker',
         inject: ['lMap'],
         mixins: [Options],
         inheritAttrs: false,
@@ -16,10 +19,6 @@
             latlng: {
                 type: [Array, Object],
                 default: null,
-            },
-            isFitBounds: {
-                type: Boolean,
-                default: false
             }
         },
         data() {
@@ -30,13 +29,16 @@
         methods: {
             initLeafletObject() {
                 this.selfOptions = extend(this.originOptions, this.options, this.$attrs);
-                this.self = circleMarker(this.latlng, this.selfOptions);
+                if(this.selfOptions.icon==undefined){
+                    this.selfOptions.icon =  icon({
+                        iconUrl: iconUrl,
+                        shadowUrl: iconShadow,
+                        iconAnchor: [12, 38],
+                    });
+                }
+                this.self = marker(this.latlng, this.selfOptions);
 
                 this.initFunction();
-
-                this.$nextTick(() => {
-                    this.isFitBounds && this.lMap.self.fitBounds(this.self.getBounds());
-                });
             },
 
         },

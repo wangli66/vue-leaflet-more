@@ -6,11 +6,12 @@
 
 <script>
     import Options from '../../../mixins/Options.js';
-    import { imageOverlay, extend } from 'leaflet';
-
+    import { extend ,latLng} from 'leaflet';
+    import { ImageOverlayRotated } from '../../../mapPlugin/Leaflet.ImageOverlay.Rotated.js';
+    
 
     export default {
-        name: 'LImageOverlay',
+        name: 'LImageOverlayRotated',
         inject: ['lMap'],
         mixins: [Options],
         inheritAttrs: false,
@@ -31,8 +32,20 @@
         methods: {
             initLeafletObject() {
                 this.selfOptions = extend(this.originOptions, this.options, this.$attrs);
-                this.self = imageOverlay(this.url, this.bounds, this.selfOptions)
+                let bounds = this.bounds;
+                let topleft,topright,bottomleft;
+                if(Array.isArray(bounds)){
+                    topleft = latLng(bounds[0]);
+                    topright = latLng(bounds[1]);
+                    bottomleft = latLng(bounds[2]);
+                }else{
+                    topleft = latLng(bounds.topleft);
+                    topright = latLng(bounds.topright);
+                    bottomleft = latLng(bounds.bottomleft);
+                }
 
+                this.self = ImageOverlayRotated(this.url, topleft, topright, bottomleft, this.selfOptions)
+                
                 this.initFunction();
             },
         },
