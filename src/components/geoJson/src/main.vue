@@ -16,6 +16,7 @@
         inheritAttrs: false,
         props: {
             geojson: {
+                custom:true,
                 type: [Array, Object],
                 default: () => ({})
             },
@@ -30,6 +31,13 @@
             };
         },
         methods: {
+            setGeojson(){
+                this.self.clearLayers && this.self.clearLayers();
+                this.addData(this.geojson);
+                this.$nextTick(() => {
+                    this.isFitBounds && this.lMap.self.fitBounds(this.self.getBounds());
+                });
+            },
             addData(data) {
                 this.self.addData(data);
             },

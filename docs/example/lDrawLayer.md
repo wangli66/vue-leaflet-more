@@ -38,9 +38,10 @@ title: lDrawLayer
 
 ```html
 <template>
+  <button @click="handeChange">切换mode</button>
   <l-map style="height:400px;" :zoomControl="true">
     <l-tile-layer :url="url" :options="options"> </l-tile-layer>
-    <l-draw-layer :dToB="dToB" :position="position"></l-draw-layer>
+    <l-draw-layer :mode="mode" :dToB="dToB" :position="position"></l-draw-layer>
   </l-map>
 </template>
 <script>
@@ -50,7 +51,13 @@ title: lDrawLayer
       options: { foo: "bar" },
       dToB: "10px 100px",
       position: "topright",
+      mode: "vertical",
     }),
+    methods: {
+      handeChange() {
+        this.mode = this.mode === "vertical" ? "horizontal " : "vertical";
+      },
+    },
   };
 </script>
 ```
@@ -455,6 +462,8 @@ title: lDrawLayer
 
 | 属性名称        | 说明                                                                                                                                                                    | 类型          | 可选值                                     | 默认值    |
 | --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- | ------------------------------------------ | --------- |
+| mode            | 模式，操作栏水平或垂直                                                                                                                                                  | string        | horizontal / vertical                      | vertical  |
+| customClass     | 组件最外层容器 类名                                                                                                                                                     | string        | —                                          | —         |
 | drawOptions     | 配置选项，具体看下表                                                                                                                                                    | object        | —                                          | —         |
 | drawShapeMore   | 是否绘制多个图形                                                                                                                                                        | boolean       | —                                          | true      |
 | commonStyle     | 绘制图形时的图形样式<br/>具体配置参考 Path 类的 Options                                                                                                                 | object        | —                                          | —         |
