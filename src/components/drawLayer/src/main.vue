@@ -92,6 +92,9 @@
                 type: Boolean,
                 default: false,
             },
+            measureFormat:{
+                type:Function
+            }
         },
         data() {
             return {
@@ -213,6 +216,24 @@
             },
         },
         methods: {
+            // 设置绘制图形
+            setDrawShape(shapeInfo){
+                if(typeof shapeInfo !='object' || !shapeInfo.type){
+                    console.error(`请确保参数shapeInfo为对象类型，并存在type属性`);
+                    return false;
+                }
+                let type = shapeInfo.type;
+                if(this.originOptions[type]){
+                    console.error(`您传入的type属性${type}为不存在，请参数drawOptions的type类型取值重新传入`);
+                    return false;
+                }
+                this.handleDrawShape(shapeInfo);
+            },
+            // 取消图形绘制
+            cancelDraw(){
+                this.editType = ''
+                this.setEditable(false)
+            },
             handleDrawShape(shapeInfo) {
                 let { type } = shapeInfo
                 this.initDrawShapeStatus(false)

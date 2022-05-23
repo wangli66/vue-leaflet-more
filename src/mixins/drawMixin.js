@@ -341,10 +341,12 @@ export default {
             let geojson = this.tempDrawing.toGeoJSON();
             var measure = 0;
             let other = '';
+            let originMeasure; //计算出来的原始尺寸
             if (type == 'length') {
                 let bounds = this.coordinateArr;
                 center = bounds[bounds.length - 1];
                 measure = turf.length(geojson, { units: 'miles' });
+                originMeasure = measure;
                 measure = '长度：' + measure + ' m';
                 other = 'tips-top';
             } else if (type == 'circle') {
@@ -353,10 +355,15 @@ export default {
                 // let params = { units: 'kilometers' };
                 // measure = turf.circle(center, radius, params);
                 measure = Math.PI * radius * radius;
+                originMeasure = measure;
                 measure = '面积：' + measure + ' ㎡';
             } else {
                 measure = turf.area(geojson);
+                originMeasure = measure;
                 measure = '面积：' + measure + ' ㎡';
+            }
+            if(this.measureFormat && typeof this.measureFormat == 'function'){
+                measure = this.measureFormat(type, originMeasure);
             }
             var myIcon = L.divIcon({
                 className: 'my-measure-icon',

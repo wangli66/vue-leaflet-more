@@ -246,6 +246,44 @@ title: lDrawLayer
 
 :::
 
+## 自定义测量显示内容
+
+- 自定义测量后的显示内容，属性 measureFormat 传值函数，参数 measureNumber（计算后的长度或面积）和 type
+- type 测量的类型，三种值
+  - length 长度单位米；
+  - circle 圆的面积，单位平方米；
+  - area 多边形的面积，单位平方米
+
+::: demo
+
+```html
+<template>
+  <l-map style="height:400px;" :zoomControl="true">
+    <l-tile-layer :url="url" :options="options"> </l-tile-layer>
+    <l-draw-layer :measure="true" :measureFormat="measureFormat"></l-draw-layer>
+  </l-map>
+</template>
+<script>
+  export default {
+    data: () => ({
+      url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}",
+      options: { foo: "bar" },
+    }),
+    methods: {
+      measureFormat(type, measureNumber) {
+        if (type == "length") {
+          return `自定义长度显示：${measureNumber}长度单位`;
+        } else if (type == "circle" || type == "area") {
+          return `自定义面积显示：${measureNumber}面积单位`;
+        }
+      },
+    },
+  };
+</script>
+```
+
+:::
+
 ## 自定义部分测量功能
 
 - 示例中，仅设置 polygon 需要测量面积
@@ -460,17 +498,18 @@ title: lDrawLayer
 
 ## 属性说明
 
-| 属性名称        | 说明                                                                                                                                                                    | 类型          | 可选值                                     | 默认值    |
-| --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- | ------------------------------------------ | --------- |
-| mode            | 模式，操作栏水平或垂直                                                                                                                                                  | string        | horizontal / vertical                      | vertical  |
-| customClass     | 组件最外层容器 类名                                                                                                                                                     | string        | —                                          | —         |
-| drawOptions     | 配置选项，具体看下表                                                                                                                                                    | object        | —                                          | —         |
-| drawShapeMore   | 是否绘制多个图形                                                                                                                                                        | boolean       | —                                          | true      |
-| commonStyle     | 绘制图形时的图形样式<br/>具体配置参考 Path 类的 Options                                                                                                                 | object        | —                                          | —         |
-| commonIconStyle | 绘制图形时的标记点样式<br/>具体配置参考 css 规则书写                                                                                                                    | object        | —                                          | —         |
-| measure         | 是否测量绘制图形的面积或长度<br/>marker、circleMarker 类型不能测量                                                                                                      | boolean       | —                                          | false     |
-| position        | 地图类型的卡片显示的位置                                                                                                                                                | string        | topleft/ topright/ bottomleft/ bottomright | topright  |
-| dToB            | 地图类型的卡片距离表框的位置。 ( 如果想设置卡片距离 x 轴和 y 轴的边框距离不一样，可设置值为“10px 20px”，字符串中的两个值用空格隔开即可，或者设置为数组["10px","20px"] ) | string，array | —                                          | 60px 10px |
+| 属性名称        | 说明                                                                                                                                                                    | 类型          | 可选值                                                | 默认值    |
+| --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- | ----------------------------------------------------- | --------- |
+| mode            | 模式，操作栏水平或垂直                                                                                                                                                  | string        | horizontal / vertical                                 | vertical  |
+| customClass     | 组件最外层容器 类名                                                                                                                                                     | string        | —                                                     | —         |
+| drawOptions     | 配置选项，具体看下表                                                                                                                                                    | object        | —                                                     | —         |
+| drawShapeMore   | 是否绘制多个图形                                                                                                                                                        | boolean       | —                                                     | true      |
+| commonStyle     | 绘制图形时的图形样式<br/>具体配置参考 Path 类的 Options                                                                                                                 | object        | —                                                     | —         |
+| commonIconStyle | 绘制图形时的标记点样式<br/>具体配置参考 css 规则书写                                                                                                                    | object        | —                                                     | —         |
+| measure         | 是否测量绘制图形的面积或长度<br/>marker、circleMarker 类型不能测量                                                                                                      | boolean       | —                                                     | false     |
+| position        | 地图类型的卡片显示的位置                                                                                                                                                | string        | topleft/ topright/ bottomleft/ bottomright            | topright  |
+| dToB            | 地图类型的卡片距离表框的位置。 ( 如果想设置卡片距离 x 轴和 y 轴的边框距离不一样，可设置值为“10px 20px”，字符串中的两个值用空格隔开即可，或者设置为数组["10px","20px"] ) | string，array | —                                                     | 60px 10px |
+| measureFormat   | 自定义测量后的显示内容                                                                                                                                                  | function      | 参数：type：测量类型,<br/>measureNumber：测量出的数值 |           |
 
 ### drawOptions
 
@@ -487,14 +526,16 @@ drawOptions 中的配置优先级 > 属性说明中的配置
 
 ## 方法说明
 
-| 方法名称      | 说明                                        | 参数 | 返回值                                                                                                                               |
-| ------------- | ------------------------------------------- | ---- | ------------------------------------------------------------------------------------------------------------------------------------ |
-| clearLayers   | 清除所有的绘制图层                          | —    | this                                                                                                                                 |
-| getDrawLayers | 得到所有的绘制图层                          | —    | Layer[]                                                                                                                              |
-| getDrawLayer  | 得到绘制图层                                | —    | object<br/>返回 featureGroup 图层本身                                                                                                |
-| toGeoJSON     | 将绘制的图层转换标记为 GeoJSON 格式对象数据 | —    | object<br/>返回 GeoJSON 的数据                                                                                                       |
-| toWKT         | 将绘制图层转换标记为 wkt 格式的字符串数据   | —    | string<br/>返回 wkt 的数据，类型 type 为几何集合 GeometryCollection                                                                  |
-| toWktArray    | 将绘制图层数据转换为 wkt 格式的字符串       |      | array<br/>返回 wkt 的数据，数组中每项的类型为简单几何类型。（Point，LineString，Polygon，MultiPoint，MultiLineString，MultiPolygon） |
+| 方法名称      | 说明                                        | 参数                                                     | 返回值                                                                                                                               |
+| ------------- | ------------------------------------------- | -------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| clearLayers   | 清除所有的绘制图层                          | —                                                        | this                                                                                                                                 |
+| getDrawLayers | 得到所有的绘制图层                          | —                                                        | Layer[]                                                                                                                              |
+| getDrawLayer  | 得到绘制图层                                | —                                                        | object<br/>返回 featureGroup 图层本身                                                                                                |
+| toGeoJSON     | 将绘制的图层转换标记为 GeoJSON 格式对象数据 | —                                                        | object<br/>返回 GeoJSON 的数据                                                                                                       |
+| toWKT         | 将绘制图层转换标记为 wkt 格式的字符串数据   | —                                                        | string<br/>返回 wkt 的数据，类型 type 为几何集合 GeometryCollection                                                                  |
+| toWktArray    | 将绘制图层数据转换为 wkt 格式的字符串       |                                                          | array<br/>返回 wkt 的数据，数组中每项的类型为简单几何类型。（Point，LineString，Polygon，MultiPoint，MultiLineString，MultiPolygon） |
+| setDrawShape  | 设置绘制图形                                | shapeInfo：绘制的图形信息，在类型和 drawOptions 保持一致 | setDrawShape（shapeInfo={}）                                                                                                         |
+| cancelDraw    | 取消图形绘制                                | —                                                        |                                                                                                                                      |
 
 ## 事件说明
 
