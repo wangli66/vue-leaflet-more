@@ -1,10 +1,10 @@
 module.exports = {
     "/example/": [
         "/example/",
-        "/example/lMap.md",
-        "/example/lBaseLayer",
-        "/example/lDrawLayer",
-        "/example/lTileLayer",
+        "/example/LMap.md",
+        "/example/LBaseLayer",
+        "/example/LDrawLayer",
+        "/example/LTileLayer",
         "/example/LWmsTileLayer",
         "/example/LWmtsTileLayer",
         "/example/LImageOverlay",

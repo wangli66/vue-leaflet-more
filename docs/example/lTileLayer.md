@@ -1,5 +1,5 @@
 ---
-title: lTileLayer
+title: LTileLayer
 ---
 
 ## 基础用法

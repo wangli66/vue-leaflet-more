@@ -211,6 +211,7 @@ export default {
             let bounds = this.coordinateArr;
             if (handleType === 'move') {
                 let i = this.marker.num && this.marker.num.length;
+                if(i>2){i = i-1;}
                 this.coordinateArr[i] = latlngCoor;
             } else {
                 this.coordinateArr.push(latlngCoor);

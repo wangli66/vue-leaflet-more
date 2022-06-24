@@ -8,7 +8,7 @@ title: LGeoJson
 
 ```html
 <template>
-  <l-map style="height:400px;">
+  <l-map style="height:400px;" @click="test">
     <l-tile-layer :url="url" :options="options"> </l-tile-layer>
     <l-geo-json :geojson="geoJson" :options="jsonOptions"></l-geo-json>
   </l-map>
@@ -23,6 +23,9 @@ title: LGeoJson
         properties: {},
         geometry: {
           type: "Polygon",
+          properties: {
+            state: 1,
+          },
           coordinates: [
             [
               [95.61808317250322, 38.57393751557594],
@@ -42,8 +45,177 @@ title: LGeoJson
         },
       },
     }),
+    methods: {
+      test(e) {
+        console.log(e.latlng);
+      },
+    },
   };
 </script>
+```
+
+:::
+
+## geojson 集合
+
+geojson 集合时，多个数据的不同渲染和时间支持
+
+::: demo
+
+```html
+<template>
+  <l-map ref="map" style="height:400px;" @click="test">
+    <l-tile-layer :url="url" :options="options"> </l-tile-layer>
+    <l-geo-json
+      ref="geojsonLayer"
+      :geojson="geoJson"
+      :options="geojsonOptions"
+      :onEachFeature="onEachFeature"
+    ></l-geo-json>
+  </l-map>
+</template>
+<script>
+  //   import L from "leaflet";
+  export default {
+    data: () => ({
+      url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}",
+      options: { foo: "bar" },
+      geoJson: {
+        type: "FeatureCollection",
+        features: [
+          {
+            type: "Feature",
+            geometry: {
+              type: "Polygon",
+              properties: {
+                state: 1,
+              },
+              coordinates: [
+                [
+                  [101.32863216319438, 35.72570430208827],
+                  [106.07278055546094, 35.72570430208827],
+                  [105.54565295632021, 32.82113382785512],
+                  [102.20717816176229, 32.82113382785512],
+                ],
+              ],
+            },
+          },
+          {
+            type: "Feature",
+            geometry: {
+              type: "Polygon",
+              properties: {
+                state: 2,
+              },
+              coordinates: [
+                [
+                  [106.07278055546094, 35.72570430208827],
+                  [110.81692894772748, 35.868279437251786],
+                  [110.46551054830033, 32.8949634680289],
+                  [105.54565295632021, 32.82113382785512],
+                ],
+              ],
+            },
+          },
+          {
+            type: "Feature",
+            geometry: {
+              type: "Polygon",
+              properties: {
+                state: 3,
+              },
+              coordinates: [
+                [
+                  [105.54565295632021, 32.82113382785512],
+                  [102.20717816176229, 32.82113382785512],
+                  [101.76790516247831, 30.04690678625502],
+                  [106.77561735431523, 29.97079807221586],
+                ],
+              ],
+            },
+          },
+          {
+            type: "Feature",
+            geometry: {
+              type: "Polygon",
+              properties: {
+                state: 4,
+              },
+              coordinates: [
+                [
+                  [105.54565295632021, 32.82113382785512],
+                  [110.46551054830033, 32.8949634680289],
+                  [112.92543934429035, 29.818405697795484],
+                  [106.77561735431523, 29.97079807221586],
+                  [105.54565295632021, 32.82113382785512],
+                ],
+              ],
+            },
+          },
+        ],
+      },
+      geojsonOptions: {
+        style(feature) {
+          const fillColorArr = ["#ff0000", "#1fff00", "#003fff", "#c900ff"];
+          let properties = feature.geometry.properties;
+          let state = properties.state;
+          let fillColor = fillColorArr[state - 1];
+          return {
+            color: "yellow",
+            fillColor: fillColor,
+            weight: 2,
+          };
+        },
+      },
+    }),
+    methods: {
+      test(e) {
+        console.log(e.latlng);
+      },
+      renderText(feature, layer) {
+        let state = feature.geometry.properties.state;
+        let myIcon = L.divIcon({
+          className: "my-geojson-icon",
+          html: '<span class="tips">状态' + state + "</span>",
+        });
+        this.$nextTick(() => {
+          let center = layer.getCenter();
+          let map = this.$refs.map.getSelf();
+          L.marker(center, { icon: myIcon }).addTo(map);
+        });
+      },
+      onEachFeature(feature, layer) {
+        let _this = this;
+        this.renderText(feature, layer);
+        layer.on({
+          mouseover(e) {
+            layer.setStyle({
+              weight: 3,
+              fillOpacity: 0.9,
+            });
+          },
+          mouseout(e) {
+            _this.$refs.geojsonLayer.resetStyle(layer);
+          },
+          click(e) {
+            let latlng = e.latlng;
+            let properties = feature.geometry.properties;
+            let state = properties.state;
+            alert("你点击的状态为" + state);
+          },
+        });
+      },
+    },
+  };
+</script>
+<style>
+  .my-geojson-icon .tips {
+    display: inline-block;
+    transform: translateX(-50%) translateY(-50%);
+    white-space: nowrap;
+    color: red;
+  }
+</style>
 ```
 
 :::

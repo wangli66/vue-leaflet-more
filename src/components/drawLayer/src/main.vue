@@ -324,6 +324,7 @@
                     this.editType = '';
                     this.setEditable(false);
                 }
+                // console.log(tempDrawing.toGeoJSON());
                 this.$emit('finishDraw', tempDrawing)
             },
             // 初始化组件对象
