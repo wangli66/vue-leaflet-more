@@ -6,7 +6,8 @@
 
 <script>
     import Options from '../../../mixins/Options.js';
-    import { circle, extend } from 'leaflet';
+    // import { circle, extend } from 'leaflet';
+    import * as L from 'leaflet';
 
 
     export default {
@@ -31,8 +32,8 @@
         },
         methods: {
             initLeafletObject() {
-                this.selfOptions = extend(this.originOptions, this.options, this.$attrs);
-                this.self = circle(this.latlng, this.selfOptions);
+                this.selfOptions = L.extend(this.originOptions, this.options, this.$attrs);
+                this.self = L.circle(this.latlng, this.selfOptions);
 
                 this.initFunction();
 

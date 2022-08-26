@@ -6,8 +6,11 @@
 
 <script>
     import Options from '../../../mixins/Options.js';
-    import { extend ,latLng} from 'leaflet';
+    // import { extend ,latLng} from 'leaflet';
     import { ImageOverlayRotated } from '../../../mapPlugin/Leaflet.ImageOverlay.Rotated.js';
+    import * as L from 'leaflet';
+    const latLng = L.latLng;
+    const extend = L.extend;
     
 
     export default {

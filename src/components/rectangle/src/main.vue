@@ -6,7 +6,10 @@
 
 <script>
     import Options from '../../../mixins/Options.js';
-    import { rectangle, extend } from 'leaflet';
+    // import { rectangle, extend } from 'leaflet';
+    import * as L from 'leaflet';
+    const rectangle = L.rectangle;
+    const extend = L.extend;
 
 
     export default {

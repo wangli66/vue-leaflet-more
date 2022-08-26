@@ -13,8 +13,11 @@
     import { propsBinder, methodsBinder } from '../../../utils/utils.js'
     import Options from '../../../mixins/Options.js'
     import drawMixin from '../../../mixins/drawMixin.js'
-    import { polyline, extend } from 'leaflet'
+    // import { polyline, extend } from 'leaflet'
     import { geojsonToWKT } from '@terraformer/wkt'
+    import * as L from 'leaflet';
+    const polyline = L.polyline;
+    const extend = L.extend;
 
     export default {
         name: 'LDrawLayer',

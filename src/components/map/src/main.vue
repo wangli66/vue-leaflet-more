@@ -7,8 +7,15 @@
 <script>
     import Options from '../../../mixins/Options.js';
     import { propsBinder, methodsBinder } from '../../../utils/utils.js';
-    import { CRS, DomEvent, map, extend, latLngBounds, latLng } from 'leaflet';
     import { wktToGeoJSON, geojsonToWKT } from "@terraformer/wkt"
+    // import { CRS, DomEvent, map, extend, latLngBounds, latLng } from 'leaflet';
+    import * as L from 'leaflet';
+    const CRS = L.CRS;
+    const DomEvent = L.DomEvent;
+    const map = L.map;
+    const extend = L.extend;
+    const latLngBounds = L.latLngBounds;
+    const latLng = L.latLng;
 
     export default {
         name: 'LMap',

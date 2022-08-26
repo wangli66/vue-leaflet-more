@@ -5,7 +5,12 @@
 <script>
     import { propsBinder, methodsBinder,findRealParent } from '../../../utils/utils.js';
     import Options from '../../../mixins/Options.js';
-    import {DomEvent, tooltip, latLng, extend } from 'leaflet';
+    // import {DomEvent, tooltip, latLng, extend } from 'leaflet';
+    import * as L from 'leaflet';
+    const DomEvent = L.DomEvent;
+    const tooltip = L.tooltip;
+    const latLng = L.latLng;
+    const extend = L.extend;
 
     export default {
         name: 'LTooltip',

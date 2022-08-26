@@ -6,7 +6,10 @@
 
 <script>
     import Options from '../../../mixins/Options.js';
-    import { layerGroup, extend } from 'leaflet';
+    // import { layerGroup, extend } from 'leaflet';
+    import * as L from 'leaflet';
+    const layerGroup = L.layerGroup;
+    const extend = L.extend;
 
 
     export default {

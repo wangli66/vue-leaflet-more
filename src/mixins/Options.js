@@ -1,5 +1,9 @@
 import { propsBinder, methodsBinder, addToParentElement } from '../utils/utils.js';
-import { DomEvent } from 'leaflet';
+// import { DomEvent } from 'leaflet';
+import * as L from 'leaflet';
+const DomEvent = L.DomEvent;
+
+// from 'leaflet';
 
 export default {
     props: {

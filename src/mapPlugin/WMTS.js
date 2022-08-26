@@ -1,6 +1,8 @@
 import * as L from 'leaflet';
-
-L.TileLayer.WMTS = L.TileLayer.extend({
+L = L.default || L;
+const TileLayer = L.TileLayer;
+console.log('---L.TileLayer---,',L.TileLayer);
+TileLayer.WMTS = TileLayer.extend({
     defaultWmtsParams: {
         service: 'WMTS',
         request: 'GetTile',
@@ -35,6 +37,7 @@ L.TileLayer.WMTS = L.TileLayer.extend({
                 wmtsParams[i] = lOptions[i];
             }
         }
+        wmtsParams.offset=options.zoomOffset||0
         this.wmtsParams = wmtsParams;
         this.matrixIds = options.matrixIds || this.getDefaultMatrix();
         L.setOptions(this, options);
@@ -49,7 +52,8 @@ L.TileLayer.WMTS = L.TileLayer.extend({
         nwPoint.x += 1;
         nwPoint.y -= 1;
         var sePoint = nwPoint.add(new L.Point(tileSize, tileSize));
-        var zoom = this._tileZoom;
+        var offset=this.wmtsParams.zoomOffset||0
+        var zoom = this._tileZoom+offset;
         var nw = this._crs.project(this._map.unproject(nwPoint, zoom));
         var se = this._crs.project(this._map.unproject(sePoint, zoom));
         var tilewidth = se.x - nw.x;
@@ -98,5 +102,5 @@ L.TileLayer.WMTS = L.TileLayer.extend({
     }
 });
 export function WMTS(url, options) {
-    return new L.TileLayer.WMTS(url, options);
+    return new TileLayer.WMTS(url, options);
 }

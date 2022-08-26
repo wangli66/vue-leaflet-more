@@ -1,4 +1,6 @@
-import { setOptions } from 'leaflet';
+// import { setOptions } from 'leaflet';
+import * as L from 'leaflet';
+const setOptions = L.setOptions;
 
 // 首字符大写
 export const capitalizeFirstLetter = string => {

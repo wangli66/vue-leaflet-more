@@ -6,7 +6,10 @@
 
 <script>
     import Options from '../../../mixins/Options.js';
-    import { videoOverlay, extend } from 'leaflet';
+    // import { videoOverlay, extend } from 'leaflet';
+    import * as L from 'leaflet';
+    const videoOverlay = L.videoOverlay;
+    const extend = L.extend;
 
 
     export default {

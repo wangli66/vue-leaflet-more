@@ -6,7 +6,10 @@
 
 <script>
     import Options from '../../../mixins/Options.js';
-    import { geoJSON, extend } from 'leaflet';
+    // import { geoJSON, extend } from 'leaflet';
+    import * as L from 'leaflet';
+    const geoJSON = L.geoJSON;
+    const extend = L.extend;
 
 
     export default {

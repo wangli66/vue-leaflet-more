@@ -5,7 +5,11 @@
 <script>
     import { propsBinder, methodsBinder,findRealParent } from '../../../utils/utils.js';
     import Options from '../../../mixins/Options.js';
-    import {DomEvent, popup, extend } from 'leaflet';
+    // import {DomEvent, popup, extend } from 'leaflet';
+    import * as L from 'leaflet';
+    const DomEvent = L.DomEvent;
+    const popup = L.popup;
+    const extend = L.extend;
 
 
     export default {
