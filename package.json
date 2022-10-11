@@ -1,6 +1,6 @@
 {
   "name": "vue-leaflet-more",
-  "version": "1.0.18",
+  "version": "1.0.19",
   "description": "基于leaflet的vue地图组件",
   "main": "src/index.js",
   "scripts": {
