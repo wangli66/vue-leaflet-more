@@ -3,7 +3,7 @@ import * as L from 'leaflet';
 L = L.default || L;
 const proj = require("proj4leaflet");
 
-export default customCrs = {
+export const customCrs = {
     EPSG4490(){
         return new proj.CRS("EPSG:4490", "+proj=longlat + ellps=GRS80 + no_defs", {
             resolutions: [

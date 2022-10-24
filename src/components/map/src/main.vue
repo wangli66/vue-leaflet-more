@@ -8,7 +8,7 @@
     import Options from '../../../mixins/Options.js';
     import { propsBinder, methodsBinder } from '../../../utils/utils.js';
     import { wktToGeoJSON, geojsonToWKT } from "@terraformer/wkt"
-    import customCrs from './customCrs.js';
+    import {customCrs} from './customCrs.js';
     // import { CRS, DomEvent, map, extend, latLngBounds, latLng } from 'leaflet';
     import * as L from 'leaflet';
     const CRS = L.CRS;
@@ -122,7 +122,7 @@
             // 初始化map
             initMap() {
                 let crs = this.crs;
-                let crsObj = crs ? { crs: (typeof crs == 'string' ? CRS[crs] : crs) } : {};
+                let crsObj = crs ? { crs: typeof crs == "string" ? CRS[crs] || customCrs[crs]() : crs } : {};
                 this.selfOptions = extend(this.originOptions, this.options, this.$attrs, crsObj);
 
                 this.map = map(this.$el, this.selfOptions);
