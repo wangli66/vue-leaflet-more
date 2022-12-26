@@ -8,16 +8,19 @@ title: LMap
 
 ```html
 <template>
-  <l-map style="height:400px;">
-    <l-tile-layer
-      :url="'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}'"
-      :options="{foo:'bar'}"
-    >
-    </l-tile-layer>
-  </l-map>
+    <l-map style="height:400px;">
+        <l-tile-layer
+            :url="'https://map.geoq.cn/ArcGIS/rest/services/ChinaOnlineCommunity/MapServer/tile/{z}/{y}/{x}'"
+            :options="{foo:'bar'}"
+        >
+        </l-tile-layer>
+    </l-map>
 </template>
 <script>
-  export default {};
+    // https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}
+    // 该地址目前失效，换成
+    // https://map.geoq.cn/ArcGIS/rest/services/ChinaOnlineCommunity/MapServer/tile/{z}/{y}/{x}
+    export default {};
 </script>
 ```
 
@@ -25,14 +28,14 @@ title: LMap
 
 ## 属性-响应式设置
 
-- vue-leaflet-more 下的其他组件是否相应都是遵循这种规则，在 options 中设置参数
-- 若 leaflet 中有相应的"set 属性"方法，则会响应
-- 例如：
-  ```html
-  <l-map style="height:400px;" :options="{zoom:4,center:[29, 114]}"></l-map>
-  zoom 值改变会响应，因为 leaflet 的 map 存在 setZoom 方法<br />
-  center 值改变则不会响应，map 中无 setCenter()方法
-  ```
+-   vue-leaflet-more 下的其他组件是否相应都是遵循这种规则，在 options 中设置参数
+-   若 leaflet 中有相应的"set 属性"方法，则会响应
+-   例如：
+    ```html
+    <l-map style="height:400px;" :options="{zoom:4,center:[29, 114]}"></l-map>
+    zoom 值改变会响应，因为 leaflet 的 map 存在 setZoom 方法<br />
+    center 值改变则不会响应，map 中无 setCenter()方法
+    ```
 
 ::: tip 属性是否响应式反应
 
@@ -53,30 +56,30 @@ js: options={zoom:4}
 
 ```html
 <template>
-  <button @click="handleChange">放大</button>
-  <l-map style="height:400px;" :options="options">
-    <l-tile-layer
-      :url="'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}'"
-      :options="{foo:'bar'}"
-    >
-    </l-tile-layer>
-  </l-map>
+    <button @click="handleChange">放大</button>
+    <l-map style="height:400px;" :options="options">
+        <l-tile-layer
+            :url="'https://map.geoq.cn/ArcGIS/rest/services/ChinaOnlineCommunity/MapServer/tile/{z}/{y}/{x}'"
+            :options="{foo:'bar'}"
+        >
+        </l-tile-layer>
+    </l-map>
 </template>
 <script>
-  export default {
-    data() {
-      return {
-        options: {
-          zoom: 4,
+    export default {
+        data() {
+            return {
+                options: {
+                    zoom: 4,
+                },
+            };
         },
-      };
-    },
-    methods: {
-      handleChange() {
-        this.options.zoom += 1;
-      },
-    },
-  };
+        methods: {
+            handleChange() {
+                this.options.zoom += 1;
+            },
+        },
+    };
 </script>
 ```
 
@@ -84,35 +87,35 @@ js: options={zoom:4}
 
 ### 非响应式放大：
 
-- 如果没有响应式的需求，推荐这种属性的传值方法，更加符合 vue 的标准
+-   如果没有响应式的需求，推荐这种属性的传值方法，更加符合 vue 的标准
 
 ::: demo
 
 ```html
 <template>
-  <button @click="handleChange">放大</button>
-  <l-map style="height:400px;" ref="map" :useSelfMethods="true" :zoom="zoom">
-    <l-tile-layer
-      :url="'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}'"
-      :options="{foo:'bar'}"
-    >
-    </l-tile-layer>
-  </l-map>
+    <button @click="handleChange">放大</button>
+    <l-map style="height:400px;" ref="map" :useSelfMethods="true" :zoom="zoom">
+        <l-tile-layer
+            :url="'https://map.geoq.cn/ArcGIS/rest/services/ChinaOnlineCommunity/MapServer/tile/{z}/{y}/{x}'"
+            :options="{foo:'bar'}"
+        >
+        </l-tile-layer>
+    </l-map>
 </template>
 <script>
-  export default {
-    data() {
-      return {
-        zoom: 4,
-      };
-    },
-    methods: {
-      handleChange() {
-        let zoom = this.$refs.map.getZoom();
-        this.$refs.map.setZoom(zoom + 1);
-      },
-    },
-  };
+    export default {
+        data() {
+            return {
+                zoom: 4,
+            };
+        },
+        methods: {
+            handleChange() {
+                let zoom = this.$refs.map.getZoom();
+                this.$refs.map.setZoom(zoom + 1);
+            },
+        },
+    };
 </script>
 ```
 
@@ -120,7 +123,7 @@ js: options={zoom:4}
 
 ## 属性说明
 
-- 下表中列举的只是一部分，更多属性配置请参考 lealet 文档
+-   下表中列举的只是一部分，更多属性配置请参考 lealet 文档
 
 | 选项        | 类型                | 默认值                                        | 描述                                                                       |
 | ----------- | ------------------- | --------------------------------------------- | -------------------------------------------------------------------------- |

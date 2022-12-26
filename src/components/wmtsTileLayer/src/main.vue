@@ -31,7 +31,7 @@
         },
         methods: {
             initLeafletObject() {
-                let crs = this.LMap.crs;
+                let crs = this.lMap.crs;
 				// matrixIdsObj一定要放在this.options之前，确保配置出来的优先级最高
 				let matrixIdsObj = {};
 				if(crs=='EPSG3857'){

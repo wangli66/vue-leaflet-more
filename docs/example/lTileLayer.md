@@ -8,17 +8,17 @@ title: LTileLayer
 
 ```html
 <template>
-  <l-map style="height:400px;">
-    <l-tile-layer :url="url" :options="options"> </l-tile-layer>
-  </l-map>
+    <l-map style="height:400px;">
+        <l-tile-layer :url="url" :options="options"> </l-tile-layer>
+    </l-map>
 </template>
 <script>
-  export default {
-    data: () => ({
-      url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}",
-      options: { foo: "bar" },
-    }),
-  };
+    export default {
+        data: () => ({
+            url: "https://map.geoq.cn/ArcGIS/rest/services/ChinaOnlineCommunity/MapServer/tile/{z}/{y}/{x}",
+            options: { foo: "bar" },
+        }),
+    };
 </script>
 ```
 

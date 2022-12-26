@@ -4,24 +4,24 @@ title: LDrawLayer
 
 ## 基础用法
 
-- 点击绘制项，选中，再次点击，取消选中
+-   点击绘制项，选中，再次点击，取消选中
 
 ::: demo
 
 ```html
 <template>
-  <l-map style="height:400px;" :zoomControl="true">
-    <l-tile-layer :url="url" :options="options"> </l-tile-layer>
-    <l-draw-layer></l-draw-layer>
-  </l-map>
+    <l-map style="height:400px;" :zoomControl="true">
+        <l-tile-layer :url="url" :options="options"> </l-tile-layer>
+        <l-draw-layer></l-draw-layer>
+    </l-map>
 </template>
 <script>
-  export default {
-    data: () => ({
-      url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}",
-      options: { foo: "bar" },
-    }),
-  };
+    export default {
+        data: () => ({
+            url: "https://map.geoq.cn/ArcGIS/rest/services/ChinaOnlineStreetGray/MapServer/tile/{z}/{y}/{x}",
+            options: { foo: "bar" },
+        }),
+    };
 </script>
 ```
 
@@ -29,36 +29,41 @@ title: LDrawLayer
 
 ## 修改展示位置
 
-- position 绘制项放置的位置，string,默认 topleft
-  - 可选值 'topleft', 'topright', 'bottomleft', 'bottomright'
-- dToB 绘制项到边框的位置 ，string,默认'10px 80px'
-  - '10px 80px': 10px 表示 x 轴距离边框的位置，80 表示 y 轴距离边框的位置
+-   position 绘制项放置的位置，string,默认 topleft
+    -   可选值 'topleft', 'topright', 'bottomleft', 'bottomright'
+-   dToB 绘制项到边框的位置 ，string,默认'10px 80px'
+    -   '10px 80px': 10px 表示 x 轴距离边框的位置，80 表示 y 轴距离边框的位置
 
 ::: demo
 
 ```html
 <template>
-  <button @click="handeChange">切换mode</button>
-  <l-map style="height:400px;" :zoomControl="true">
-    <l-tile-layer :url="url" :options="options"> </l-tile-layer>
-    <l-draw-layer :mode="mode" :dToB="dToB" :position="position"></l-draw-layer>
-  </l-map>
+    <button @click="handeChange">切换mode</button>
+    <l-map style="height:400px;" :zoomControl="true">
+        <l-tile-layer :url="url" :options="options"> </l-tile-layer>
+        <l-draw-layer
+            :mode="mode"
+            :dToB="dToB"
+            :position="position"
+        ></l-draw-layer>
+    </l-map>
 </template>
 <script>
-  export default {
-    data: () => ({
-      url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}",
-      options: { foo: "bar" },
-      dToB: "10px 100px",
-      position: "topright",
-      mode: "vertical",
-    }),
-    methods: {
-      handeChange() {
-        this.mode = this.mode === "vertical" ? "horizontal " : "vertical";
-      },
-    },
-  };
+    export default {
+        data: () => ({
+            url: "https://map.geoq.cn/ArcGIS/rest/services/ChinaOnlineStreetGray/MapServer/tile/{z}/{y}/{x}",
+            options: { foo: "bar" },
+            dToB: "10px 100px",
+            position: "topright",
+            mode: "vertical",
+        }),
+        methods: {
+            handeChange() {
+                this.mode =
+                    this.mode === "vertical" ? "horizontal " : "vertical";
+            },
+        },
+    };
 </script>
 ```
 
@@ -66,26 +71,26 @@ title: LDrawLayer
 
 ## 仅绘制一个图形
 
-- 设置属性 drawShapeMore:false; 默认可以绘制多个图形
-- 地图只能绘制一个图像，绘制下个图形时，上个图形自动删除
-- 一个图形的限制仅 针对于'rectangle', 'polygon', 'circle', 'polyline',
+-   设置属性 drawShapeMore:false; 默认可以绘制多个图形
+-   地图只能绘制一个图像，绘制下个图形时，上个图形自动删除
+-   一个图形的限制仅 针对于'rectangle', 'polygon', 'circle', 'polyline',
 
 ::: demo
 
 ```html
 <template>
-  <l-map style="height:400px;" :zoomControl="true">
-    <l-tile-layer :url="url" :options="options"> </l-tile-layer>
-    <l-draw-layer :drawShapeMore="false"></l-draw-layer>
-  </l-map>
+    <l-map style="height:400px;" :zoomControl="true">
+        <l-tile-layer :url="url" :options="options"> </l-tile-layer>
+        <l-draw-layer :drawShapeMore="false"></l-draw-layer>
+    </l-map>
 </template>
 <script>
-  export default {
-    data: () => ({
-      url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}",
-      options: { foo: "bar" },
-    }),
-  };
+    export default {
+        data: () => ({
+            url: "https://map.geoq.cn/ArcGIS/rest/services/ChinaOnlineStreetGray/MapServer/tile/{z}/{y}/{x}",
+            options: { foo: "bar" },
+        }),
+    };
 </script>
 ```
 
@@ -93,28 +98,28 @@ title: LDrawLayer
 
 ## 自定义绘制项-[string,string]
 
-- drawOptions 属性可以是 string 类型的数组
-- 默认显示可以绘制项的有：
-- marker(点标记), circleMarker(圆标记), rectangle(矩形), polygon(多边形), circle(圆形), polyline(多线段), delete(删除功能 )
-- 本示例仅配置显示出 marker, rectangle,polygon,delete,此种配置只能展示组件默认的展示信息，更为精细的配置请参考下一项
+-   drawOptions 属性可以是 string 类型的数组
+-   默认显示可以绘制项的有：
+-   marker(点标记), circleMarker(圆标记), rectangle(矩形), polygon(多边形), circle(圆形), polyline(多线段), delete(删除功能 )
+-   本示例仅配置显示出 marker, rectangle,polygon,delete,此种配置只能展示组件默认的展示信息，更为精细的配置请参考下一项
 
 ::: demo
 
 ```html
 <template>
-  <l-map style="height:400px;" :zoomControl="true">
-    <l-tile-layer :url="url" :options="options"> </l-tile-layer>
-    <l-draw-layer :drawOptions="drawOptions"></l-draw-layer>
-  </l-map>
+    <l-map style="height:400px;" :zoomControl="true">
+        <l-tile-layer :url="url" :options="options"> </l-tile-layer>
+        <l-draw-layer :drawOptions="drawOptions"></l-draw-layer>
+    </l-map>
 </template>
 <script>
-  export default {
-    data: () => ({
-      url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}",
-      options: { foo: "bar" },
-      drawOptions: ["marker", "rectangle", "polygon", "delete"],
-    }),
-  };
+    export default {
+        data: () => ({
+            url: "https://map.geoq.cn/ArcGIS/rest/services/ChinaOnlineStreetGray/MapServer/tile/{z}/{y}/{x}",
+            options: { foo: "bar" },
+            drawOptions: ["marker", "rectangle", "polygon", "delete"],
+        }),
+    };
 </script>
 ```
 
@@ -122,31 +127,31 @@ title: LDrawLayer
 
 ## 自定义绘制项-[object,object]
 
-- drawOptions 属性可以是 object 类型的数组
-- 对象形式,在更为精确的配置时使用，drawOptions 数组对象中的 key 必须包含 type
-- 本示例配置显示三项：rectangle,polygon,delete, 并 rectangle 自定义 title 提示信息
+-   drawOptions 属性可以是 object 类型的数组
+-   对象形式,在更为精确的配置时使用，drawOptions 数组对象中的 key 必须包含 type
+-   本示例配置显示三项：rectangle,polygon,delete, 并 rectangle 自定义 title 提示信息
 
 ::: demo
 
 ```html
 <template>
-  <l-map style="height:400px;" :zoomControl="true">
-    <l-tile-layer :url="url" :options="options"> </l-tile-layer>
-    <l-draw-layer :drawOptions="drawOptions"></l-draw-layer>
-  </l-map>
+    <l-map style="height:400px;" :zoomControl="true">
+        <l-tile-layer :url="url" :options="options"> </l-tile-layer>
+        <l-draw-layer :drawOptions="drawOptions"></l-draw-layer>
+    </l-map>
 </template>
 <script>
-  export default {
-    data: () => ({
-      url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}",
-      options: { foo: "bar" },
-      drawOptions: [
-        { type: "rectangle", title: "自定义title显示名" },
-        { type: "polygon" },
-        { type: "delete" },
-      ],
-    }),
-  };
+    export default {
+        data: () => ({
+            url: "https://map.geoq.cn/ArcGIS/rest/services/ChinaOnlineStreetGray/MapServer/tile/{z}/{y}/{x}",
+            options: { foo: "bar" },
+            drawOptions: [
+                { type: "rectangle", title: "自定义title显示名" },
+                { type: "polygon" },
+                { type: "delete" },
+            ],
+        }),
+    };
 </script>
 ```
 
@@ -154,33 +159,33 @@ title: LDrawLayer
 
 ## 自定义绘制项-[object,string]
 
-- drawOptions 属性可以是 object 和 string 混合类型的数组
-- 这种配置，可应用于只有个别的绘制项需要自定义配置的情况下
-- 本示例配置显示三项：rectangle,polygon,circle,polyline,delete,
+-   drawOptions 属性可以是 object 和 string 混合类型的数组
+-   这种配置，可应用于只有个别的绘制项需要自定义配置的情况下
+-   本示例配置显示三项：rectangle,polygon,circle,polyline,delete,
 
 ::: demo
 
 ```html
 <template>
-  <l-map style="height:400px;" :zoomControl="true">
-    <l-tile-layer :url="url" :options="options"> </l-tile-layer>
-    <l-draw-layer :drawOptions="drawOptions"></l-draw-layer>
-  </l-map>
+    <l-map style="height:400px;" :zoomControl="true">
+        <l-tile-layer :url="url" :options="options"> </l-tile-layer>
+        <l-draw-layer :drawOptions="drawOptions"></l-draw-layer>
+    </l-map>
 </template>
 <script>
-  export default {
-    data: () => ({
-      url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}",
-      options: { foo: "bar" },
-      drawOptions: [
-        "rectangle",
-        { type: "polygon", title: "自定义多边形的提示名称" },
-        "circle",
-        "polyline",
-        "delete",
-      ],
-    }),
-  };
+    export default {
+        data: () => ({
+            url: "https://map.geoq.cn/ArcGIS/rest/services/ChinaOnlineStreetGray/MapServer/tile/{z}/{y}/{x}",
+            options: { foo: "bar" },
+            drawOptions: [
+                "rectangle",
+                { type: "polygon", title: "自定义多边形的提示名称" },
+                "circle",
+                "polyline",
+                "delete",
+            ],
+        }),
+    };
 </script>
 ```
 
@@ -188,33 +193,33 @@ title: LDrawLayer
 
 ## 自定义绘制项 - object
 
-- drawOptions 属性值为 object,对象的 key 为绘制项的类型
-- 此种配置方式和[object]大致相同
-- 本示例配置显示项：rectangle,polygon,delete,
+-   drawOptions 属性值为 object,对象的 key 为绘制项的类型
+-   此种配置方式和[object]大致相同
+-   本示例配置显示项：rectangle,polygon,delete,
 
 ::: demo
 
 ```html
 <template>
-  <l-map style="height:400px;" :zoomControl="true">
-    <l-tile-layer :url="url" :options="options"> </l-tile-layer>
-    <l-draw-layer :drawOptions="drawOptions"></l-draw-layer>
-  </l-map>
+    <l-map style="height:400px;" :zoomControl="true">
+        <l-tile-layer :url="url" :options="options"> </l-tile-layer>
+        <l-draw-layer :drawOptions="drawOptions"></l-draw-layer>
+    </l-map>
 </template>
 <script>
-  export default {
-    data: () => ({
-      url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}",
-      options: { foo: "bar" },
-      drawOptions: {
-        rectangle: {
-          title: "自定义绘制矩形提示名称",
-        },
-        polygon: {},
-        delete: {},
-      },
-    }),
-  };
+    export default {
+        data: () => ({
+            url: "https://map.geoq.cn/ArcGIS/rest/services/ChinaOnlineStreetGray/MapServer/tile/{z}/{y}/{x}",
+            options: { foo: "bar" },
+            drawOptions: {
+                rectangle: {
+                    title: "自定义绘制矩形提示名称",
+                },
+                polygon: {},
+                delete: {},
+            },
+        }),
+    };
 </script>
 ```
 
@@ -222,25 +227,25 @@ title: LDrawLayer
 
 ## 测量功能
 
-- 测量功能仅支持 rectangle，polygon，circle 的面积测量， polyline 的长度测量
-- 设置属性 measure:true; 表示以上几种类型全部测试，默认不测量
+-   测量功能仅支持 rectangle，polygon，circle 的面积测量， polyline 的长度测量
+-   设置属性 measure:true; 表示以上几种类型全部测试，默认不测量
 
 ::: demo
 
 ```html
 <template>
-  <l-map style="height:400px;" :zoomControl="true">
-    <l-tile-layer :url="url" :options="options"> </l-tile-layer>
-    <l-draw-layer :measure="true"></l-draw-layer>
-  </l-map>
+    <l-map style="height:400px;" :zoomControl="true">
+        <l-tile-layer :url="url" :options="options"> </l-tile-layer>
+        <l-draw-layer :measure="true"></l-draw-layer>
+    </l-map>
 </template>
 <script>
-  export default {
-    data: () => ({
-      url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}",
-      options: { foo: "bar" },
-    }),
-  };
+    export default {
+        data: () => ({
+            url: "https://map.geoq.cn/ArcGIS/rest/services/ChinaOnlineStreetGray/MapServer/tile/{z}/{y}/{x}",
+            options: { foo: "bar" },
+        }),
+    };
 </script>
 ```
 
@@ -248,37 +253,40 @@ title: LDrawLayer
 
 ## 自定义测量显示内容
 
-- 自定义测量后的显示内容，属性 measureFormat 传值函数，参数 measureNumber（计算后的长度或面积）和 type
-- type 测量的类型，三种值
-  - length 长度单位米；
-  - circle 圆的面积，单位平方米；
-  - area 多边形的面积，单位平方米
+-   自定义测量后的显示内容，属性 measureFormat 传值函数，参数 measureNumber（计算后的长度或面积）和 type
+-   type 测量的类型，三种值
+    -   length 长度单位米；
+    -   circle 圆的面积，单位平方米；
+    -   area 多边形的面积，单位平方米
 
 ::: demo
 
 ```html
 <template>
-  <l-map style="height:400px;" :zoomControl="true">
-    <l-tile-layer :url="url" :options="options"> </l-tile-layer>
-    <l-draw-layer :measure="true" :measureFormat="measureFormat"></l-draw-layer>
-  </l-map>
+    <l-map style="height:400px;" :zoomControl="true">
+        <l-tile-layer :url="url" :options="options"> </l-tile-layer>
+        <l-draw-layer
+            :measure="true"
+            :measureFormat="measureFormat"
+        ></l-draw-layer>
+    </l-map>
 </template>
 <script>
-  export default {
-    data: () => ({
-      url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}",
-      options: { foo: "bar" },
-    }),
-    methods: {
-      measureFormat(type, measureNumber) {
-        if (type == "length") {
-          return `自定义长度显示：${measureNumber}长度单位`;
-        } else if (type == "circle" || type == "area") {
-          return `自定义面积显示：${measureNumber}面积单位`;
-        }
-      },
-    },
-  };
+    export default {
+        data: () => ({
+            url: "https://map.geoq.cn/ArcGIS/rest/services/ChinaOnlineStreetGray/MapServer/tile/{z}/{y}/{x}",
+            options: { foo: "bar" },
+        }),
+        methods: {
+            measureFormat(type, measureNumber) {
+                if (type == "length") {
+                    return `自定义长度显示：${measureNumber}长度单位`;
+                } else if (type == "circle" || type == "area") {
+                    return `自定义面积显示：${measureNumber}面积单位`;
+                }
+            },
+        },
+    };
 </script>
 ```
 
@@ -286,31 +294,31 @@ title: LDrawLayer
 
 ## 自定义部分测量功能
 
-- 示例中，仅设置 polygon 需要测量面积
+-   示例中，仅设置 polygon 需要测量面积
 
 ::: demo
 
 ```html
 <template>
-  <l-map style="height:400px;" :zoomControl="true">
-    <l-tile-layer :url="url" :options="options"> </l-tile-layer>
-    <l-draw-layer :drawOptions="drawOptions"></l-draw-layer>
-  </l-map>
+    <l-map style="height:400px;" :zoomControl="true">
+        <l-tile-layer :url="url" :options="options"> </l-tile-layer>
+        <l-draw-layer :drawOptions="drawOptions"></l-draw-layer>
+    </l-map>
 </template>
 <script>
-  export default {
-    data: () => ({
-      url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}",
-      options: { foo: "bar" },
-      drawOptions: [
-        "rectangle",
-        { type: "polygon", measure: true },
-        "circle",
-        "polyline",
-        "delete",
-      ],
-    }),
-  };
+    export default {
+        data: () => ({
+            url: "https://map.geoq.cn/ArcGIS/rest/services/ChinaOnlineStreetGray/MapServer/tile/{z}/{y}/{x}",
+            options: { foo: "bar" },
+            drawOptions: [
+                "rectangle",
+                { type: "polygon", measure: true },
+                "circle",
+                "polyline",
+                "delete",
+            ],
+        }),
+    };
 </script>
 ```
 
@@ -318,45 +326,45 @@ title: LDrawLayer
 
 ## 自定义绘制图形的样式
 
-- 属性 commonStyle，自定义整体绘制图形的样式
-- 类型：object, 参考：leaflet 中定义图形 Options 参数中 style 对象
-- 优先级：drawOptions 中的 style 配置 > 优先级大于 commonStyle 中的配置
-- 绘制样式改变，绘制标记点的边框会随之改变
-- 示例中，polygon 类型是绘制样式特殊设定的，也可将每个绘制项都配置成不一样的
+-   属性 commonStyle，自定义整体绘制图形的样式
+-   类型：object, 参考：leaflet 中定义图形 Options 参数中 style 对象
+-   优先级：drawOptions 中的 style 配置 > 优先级大于 commonStyle 中的配置
+-   绘制样式改变，绘制标记点的边框会随之改变
+-   示例中，polygon 类型是绘制样式特殊设定的，也可将每个绘制项都配置成不一样的
 
 ::: demo
 
 ```html
 <template>
-  <l-map style="height:400px;" :zoomControl="true">
-    <l-tile-layer :url="url" :options="options"> </l-tile-layer>
-    <l-draw-layer
-      :commonStyle="commonStyle"
-      :drawOptions="drawOptions"
-    ></l-draw-layer>
-  </l-map>
+    <l-map style="height:400px;" :zoomControl="true">
+        <l-tile-layer :url="url" :options="options"> </l-tile-layer>
+        <l-draw-layer
+            :commonStyle="commonStyle"
+            :drawOptions="drawOptions"
+        ></l-draw-layer>
+    </l-map>
 </template>
 <script>
-  export default {
-    data: () => ({
-      url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}",
-      options: { foo: "bar" },
-      commonStyle: {
-        color: "#E5D612",
-        weight: 3,
-      },
-      drawOptions: [
-        "rectangle",
-        {
-          type: "polygon",
-          style: { color: "red", weigth: 5, fillColor: "#000000" },
-        },
-        "circle",
-        "polyline",
-        "delete",
-      ],
-    }),
-  };
+    export default {
+        data: () => ({
+            url: "https://map.geoq.cn/ArcGIS/rest/services/ChinaOnlineStreetGray/MapServer/tile/{z}/{y}/{x}",
+            options: { foo: "bar" },
+            commonStyle: {
+                color: "#E5D612",
+                weight: 3,
+            },
+            drawOptions: [
+                "rectangle",
+                {
+                    type: "polygon",
+                    style: { color: "red", weigth: 5, fillColor: "#000000" },
+                },
+                "circle",
+                "polyline",
+                "delete",
+            ],
+        }),
+    };
 </script>
 ```
 
@@ -364,48 +372,48 @@ title: LDrawLayer
 
 ## 自定义绘制标记点
 
-- 属性 commonIconStyle，自定义整理绘制时的标记点的样式
-- 类型：object, 参考：css 样式写法
-- 优先级：drawOptions 中的 iconStyle 配置 > commonIconStyle > commonStyle 的影响 > drawOptions 中的 style 的影响
-- 示例中，polygon 类型是绘制样式特殊设定的，也可将每个绘制项都配置成不一样的
+-   属性 commonIconStyle，自定义整理绘制时的标记点的样式
+-   类型：object, 参考：css 样式写法
+-   优先级：drawOptions 中的 iconStyle 配置 > commonIconStyle > commonStyle 的影响 > drawOptions 中的 style 的影响
+-   示例中，polygon 类型是绘制样式特殊设定的，也可将每个绘制项都配置成不一样的
 
 ::: demo
 
 ```html
 <template>
-  <l-map style="height:400px;" :zoomControl="true">
-    <l-tile-layer :url="url" :options="options"> </l-tile-layer>
-    <l-draw-layer
-      :commonIconStyle="commonIconStyle"
-      :drawOptions="drawOptions"
-    ></l-draw-layer>
-  </l-map>
+    <l-map style="height:400px;" :zoomControl="true">
+        <l-tile-layer :url="url" :options="options"> </l-tile-layer>
+        <l-draw-layer
+            :commonIconStyle="commonIconStyle"
+            :drawOptions="drawOptions"
+        ></l-draw-layer>
+    </l-map>
 </template>
 <script>
-  export default {
-    data: () => ({
-      url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}",
-      options: { foo: "bar" },
-      commonIconStyle: {
-        border: "1px solid red",
-        "background-color": "#FC05E8",
-      },
-      drawOptions: [
-        "rectangle",
-        {
-          type: "polygon",
-          iconStyle: {
-            border: "none",
-            "background-color": "#8B868B",
-            "border-radius": "0",
-          },
-        },
-        "circle",
-        "polyline",
-        "delete",
-      ],
-    }),
-  };
+    export default {
+        data: () => ({
+            url: "https://map.geoq.cn/ArcGIS/rest/services/ChinaOnlineStreetGray/MapServer/tile/{z}/{y}/{x}",
+            options: { foo: "bar" },
+            commonIconStyle: {
+                border: "1px solid red",
+                "background-color": "#FC05E8",
+            },
+            drawOptions: [
+                "rectangle",
+                {
+                    type: "polygon",
+                    iconStyle: {
+                        border: "none",
+                        "background-color": "#8B868B",
+                        "border-radius": "0",
+                    },
+                },
+                "circle",
+                "polyline",
+                "delete",
+            ],
+        }),
+    };
 </script>
 ```
 
@@ -417,39 +425,39 @@ title: LDrawLayer
 
 ```html
 <template>
-  <l-map style="height:400px;" :zoomControl="true">
-    <l-tile-layer :url="url" :options="options"> </l-tile-layer>
-    <l-draw-layer :drawOptions="drawOptions"></l-draw-layer>
-  </l-map>
+    <l-map style="height:400px;" :zoomControl="true">
+        <l-tile-layer :url="url" :options="options"> </l-tile-layer>
+        <l-draw-layer :drawOptions="drawOptions"></l-draw-layer>
+    </l-map>
 </template>
 <script>
-  export default {
-    data: () => ({
-      url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}",
-      options: { foo: "bar" },
-      drawOptions: [],
-    }),
-    mounted() {
-      const L = require("leaflet");
-      this.drawOptions = [
-        {
-          type: "marker",
-          style: {
-            icon: L.icon({
-              iconUrl: require("./marker-icon.png"),
-              iconAnchor: [12, 38],
-            }),
-            title: "default",
-          },
+    export default {
+        data: () => ({
+            url: "https://map.geoq.cn/ArcGIS/rest/services/ChinaOnlineStreetGray/MapServer/tile/{z}/{y}/{x}",
+            options: { foo: "bar" },
+            drawOptions: [],
+        }),
+        mounted() {
+            const L = require("leaflet");
+            this.drawOptions = [
+                {
+                    type: "marker",
+                    style: {
+                        icon: L.icon({
+                            iconUrl: require("./marker-icon.png"),
+                            iconAnchor: [12, 38],
+                        }),
+                        title: "default",
+                    },
+                },
+                "rectangle",
+                "polygon",
+                "circle",
+                "polyline",
+                "delete",
+            ];
         },
-        "rectangle",
-        "polygon",
-        "circle",
-        "polyline",
-        "delete",
-      ];
-    },
-  };
+    };
 </script>
 ```
 
@@ -457,40 +465,40 @@ title: LDrawLayer
 
 ## 自定义圆标记 circleMarker
 
-- style 中的配置，请参考 Path 类的 Options
+-   style 中的配置，请参考 Path 类的 Options
 
 ::: demo
 
 ```html
 <template>
-  <l-map style="height:400px;" :zoomControl="true">
-    <l-tile-layer :url="url" :options="options"> </l-tile-layer>
-    <l-draw-layer :drawOptions="drawOptions"></l-draw-layer>
-  </l-map>
+    <l-map style="height:400px;" :zoomControl="true">
+        <l-tile-layer :url="url" :options="options"> </l-tile-layer>
+        <l-draw-layer :drawOptions="drawOptions"></l-draw-layer>
+    </l-map>
 </template>
 <script>
-  export default {
-    data: () => ({
-      url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}",
-      options: { foo: "bar" },
-      drawOptions: [
-        {
-          type: "circleMarker",
-          style: {
-            border: 20,
-            color: "red",
-            fillColor: "blue",
-            fillOpacity: 0.5,
-          },
-        },
-        "rectangle",
-        "polygon",
-        "circle",
-        "polyline",
-        "delete",
-      ],
-    }),
-  };
+    export default {
+        data: () => ({
+            url: "https://map.geoq.cn/ArcGIS/rest/services/ChinaOnlineStreetGray/MapServer/tile/{z}/{y}/{x}",
+            options: { foo: "bar" },
+            drawOptions: [
+                {
+                    type: "circleMarker",
+                    style: {
+                        border: 20,
+                        color: "red",
+                        fillColor: "blue",
+                        fillOpacity: 0.5,
+                    },
+                },
+                "rectangle",
+                "polygon",
+                "circle",
+                "polyline",
+                "delete",
+            ],
+        }),
+    };
 </script>
 ```
 

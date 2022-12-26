@@ -1,7 +1,5 @@
-
-import * as L from 'leaflet';
-L = L.default || L;
-const proj = require("proj4leaflet");
+import * as projObj from 'proj4leaflet';
+const proj = projObj.default || proj;
 
 export const customCrs = {
     EPSG4490(){
