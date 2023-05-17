@@ -1,23 +1,24 @@
-import * as L from 'leaflet';
+import * as L from "leaflet";
 L = L.default || L;
 const TileLayer = L.TileLayer;
-console.log('---L.TileLayer---,',L.TileLayer);
+// console.log('---L.TileLayer---,',L.TileLayer);
 TileLayer.WMTS = TileLayer.extend({
     defaultWmtsParams: {
-        service: 'WMTS',
-        request: 'GetTile',
-        version: '1.0.0',
-        layer: '',
-        style: '',
-        tilematrixset: '',
-        format: 'image/jpeg',
+        service: "WMTS",
+        request: "GetTile",
+        version: "1.0.0",
+        layer: "",
+        style: "",
+        tilematrixset: "",
+        format: "image/jpeg",
         // tilematrix: '',
     },
-    initialize: function(url, options) { // (String, Object)
+    initialize: function (url, options) {
+        // (String, Object)
         this._url = url;
         var lOptions = {};
         var cOptions = Object.keys(options);
-        cOptions.forEach(element => {
+        cOptions.forEach((element) => {
             lOptions[element.toLowerCase()] = options[element];
         });
         var wmtsParams = L.extend({}, this.defaultWmtsParams);
@@ -37,23 +38,24 @@ TileLayer.WMTS = TileLayer.extend({
                 wmtsParams[i] = lOptions[i];
             }
         }
-        wmtsParams.offset=options.zoomOffset||0
+        wmtsParams.offset = options.zoomOffset || 0;
         this.wmtsParams = wmtsParams;
         this.matrixIds = options.matrixIds || this.getDefaultMatrix();
         L.setOptions(this, options);
     },
-    onAdd: function(map) {
+    onAdd: function (map) {
         this._crs = this.options.crs || map.options.crs;
         L.TileLayer.prototype.onAdd.call(this, map);
     },
-    getTileUrl: function(coords) { // (Point, Number) -> String
+    getTileUrl: function (coords) {
+        // (Point, Number) -> String
         var tileSize = this.options.tileSize;
         var nwPoint = coords.multiplyBy(tileSize);
         nwPoint.x += 1;
         nwPoint.y -= 1;
         var sePoint = nwPoint.add(new L.Point(tileSize, tileSize));
-        var offset=this.wmtsParams.offset ||0
-        var zoom = this._tileZoom+offset;
+        var offset = this.wmtsParams.offset || 0;
+        var zoom = this._tileZoom + offset;
         var nw = this._crs.project(this._map.unproject(nwPoint, zoom));
         var se = this._crs.project(this._map.unproject(sePoint, zoom));
         var tilewidth = se.x - nw.x;
@@ -73,34 +75,42 @@ TileLayer.WMTS = TileLayer.extend({
             // delete wmtsParams.height;
             delete wmtsParams.tilematrix;
 
-            console.log('--------', tilematrix);
+            // console.log("--------", tilematrix);
         }
 
-        return url + L.Util.getParamString(wmtsParams, url) + "&tilematrix=" + tilematrix +
-            "&tilerow=" + tilerow + "&tilecol=" + tilecol;
+        return (
+            url +
+            L.Util.getParamString(wmtsParams, url) +
+            "&tilematrix=" +
+            tilematrix +
+            "&tilerow=" +
+            tilerow +
+            "&tilecol=" +
+            tilecol
+        );
     },
-    setParams: function(params, noRedraw) {
+    setParams: function (params, noRedraw) {
         L.extend(this.wmtsParams, params);
         if (!noRedraw) {
             this.redraw();
         }
         return this;
     },
-    getDefaultMatrix: function() {
+    getDefaultMatrix: function () {
         /**
          * the matrix4326 represents the projection
          * for in the IGN WMTS for the google coordinates.
-		 * 3857的matrix在wmts的组件中处理  matrix3857
+         * 3857的matrix在wmts的组件中处理  matrix3857
          */
-         var matrixIds4326 = new Array(22);
-         for (var i = 0; i < 22; i++) {
-             matrixIds4326[i] = {
-                 identifier: 1 + i,
-                 topLeftCorner: new L.LatLng(90, -180)
-             };
-         }
-         return matrixIds4326;
-    }
+        var matrixIds4326 = new Array(22);
+        for (var i = 0; i < 22; i++) {
+            matrixIds4326[i] = {
+                identifier: 1 + i,
+                topLeftCorner: new L.LatLng(90, -180),
+            };
+        }
+        return matrixIds4326;
+    },
 });
 export function WMTS(url, options) {
     return new TileLayer.WMTS(url, options);
